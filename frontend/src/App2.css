@@ -1,0 +1,407 @@
+/* App.css */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.app-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.header-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.driver-select {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 25px;
+  font-size: 14px;
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+}
+
+.create-driver-btn {
+  padding: 8px 15px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-driver-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.app-nav {
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  padding: 0 30px;
+  overflow-x: auto;
+}
+
+.nav-btn {
+  padding: 15px 25px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.nav-btn.active {
+  color: white;
+  border-bottom-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.app-main {
+  flex: 1;
+  padding: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.no-driver-selected {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.no-driver-selected h2 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.no-driver-selected p {
+  color: #666;
+  font-size: 16px;
+}
+
+/* Duty Status Changer Styles */
+.duty-status-changer {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.duty-status-changer h3 {
+  margin: 0 0 25px 0;
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.status-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.status-button {
+  padding: 15px 20px;
+  border: 2px solid;
+  border-radius: 8px;
+  background: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.status-button:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-1px);
+}
+
+.status-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.loading-message {
+  text-align: center;
+  padding: 15px;
+  color: #666;
+  font-style: italic;
+}
+
+/* Trip Planning Styles */
+.trip-tab {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.trip-tab h2 {
+  margin: 0 0 30px 0;
+  color: #333;
+  text-align: center;
+}
+
+.trip-planning-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.trip-form {
+  margin-bottom: 30px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.plan-trip-btn {
+  width: 100%;
+  padding: 15px 25px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.plan-trip-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.plan-trip-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.trip-results {
+  border-top: 2px solid #e0e0e0;
+  padding-top: 30px;
+}
+
+.trip-status {
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.trip-status.approved {
+  background: #d4edda;
+  border: 2px solid #28a745;
+  color: #155724;
+}
+
+.trip-status.denied {
+  background: #f8d7da;
+  border: 2px solid #dc3545;
+  color: #721c24;
+}
+
+.trip-status h3 {
+  margin: 0 0 15px 0;
+  font-size: 20px;
+}
+
+.denial-reasons ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.route-info, .trip-hos-summary {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.route-info h4, .trip-hos-summary h4 {
+  margin: 0 0 15px 0;
+  color: #333;
+}
+
+.route-details p {
+  margin: 8px 0;
+  color: #666;
+}
+
+.waypoints {
+  margin-top: 15px;
+}
+
+.waypoints h5 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.waypoints ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.waypoints li {
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.hos-quick-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.stat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.stat .label {
+  color: #666;
+  font-size: 14px;
+}
+
+.stat .value {
+  color: #333;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.app-footer {
+  background: #343a40;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+}
+
+.app-footer p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .header-controls {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .driver-select, .create-driver-btn {
+    width: 100%;
+  }
+  
+  .app-nav {
+    padding: 0 15px;
+  }
+  
+  .nav-btn {
+    padding: 12px 15px;
+    font-size: 12px;
+  }
+  
+  .app-main {
+    padding: 15px;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .status-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .hos-quick-stats {
+    grid-template-columns: 1fr;
+  }
+}

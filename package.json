@@ -1,0 +1,38 @@
+{
+  "name": "eld-project",
+  "version": "1.0.0",
+  "description": "Electronic Logging Device (ELD) System - Full-stack application for HOS compliance",
+  "scripts": {
+    "dev": "concurrently \"npm run backend:dev\" \"npm run frontend:dev\"",
+    "start": "npm run dev",
+    "backend:dev": "cd backend && ../.venv/Scripts/python.exe manage.py runserver 127.0.0.1:6800",
+    "backend:prod": "cd backend && ../.venv/Scripts/python.exe manage.py runserver 0.0.0.0:6800",
+    "frontend:dev": "cd frontend && set PORT=1300 && npm start",
+    "frontend:build": "cd frontend && npm run build",
+    "frontend:serve": "cd frontend && npx serve -s build -l 1300",
+    "prod": "concurrently \"npm run backend:prod\" \"npm run frontend:serve\"",
+    "install-deps": "npm install && cd frontend && npm install",
+    "setup": "npm run install-deps",
+    "build": "npm run frontend:build",
+    "test": "cd frontend && npm test",
+    "deploy": "npm run setup && npm run build && npm run prod"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "serve": "^14.2.1"
+  },
+  "keywords": [
+    "eld",
+    "hours-of-service",
+    "trucking",
+    "compliance",
+    "django",
+    "react"
+  ],
+  "author": "TerryB26",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TerryB26/eld-project.git"
+  }
+}
