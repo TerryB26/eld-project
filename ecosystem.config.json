@@ -3,8 +3,9 @@
     {
       "name": "eld-backend",
       "cwd": "./backend",
-      "script": "../.venv/bin/python",
-      "args": "manage.py runserver 0.0.0.0:6800",
+      "script": "manage.py",
+      "args": "runserver 0.0.0.0:6800",
+      "interpreter": "../.venv/bin/python",
       "instances": 1,
       "autorestart": true,
       "watch": false,
