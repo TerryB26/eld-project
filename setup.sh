@@ -63,21 +63,40 @@ install_system_dependencies() {
     case $DISTRO in
         ubuntu|debian)
             log_info "Updating package list..."
-            sudo apt update
+            if [ "$EUID" -eq 0 ]; then
+                apt update
+            else
+                sudo apt update
+            fi
             
             log_info "Installing system packages..."
-            sudo apt install -y \
-                python3 \
-                python3-pip \
-                python3-venv \
-                python3-dev \
-                nodejs \
-                npm \
-                git \
-                curl \
-                build-essential \
-                sqlite3 \
-                libsqlite3-dev
+            if [ "$EUID" -eq 0 ]; then
+                apt install -y \
+                    python3 \
+                    python3-pip \
+                    python3-venv \
+                    python3-dev \
+                    nodejs \
+                    npm \
+                    git \
+                    curl \
+                    build-essential \
+                    sqlite3 \
+                    libsqlite3-dev
+            else
+                sudo apt install -y \
+                    python3 \
+                    python3-pip \
+                    python3-venv \
+                    python3-dev \
+                    nodejs \
+                    npm \
+                    git \
+                    curl \
+                    build-essential \
+                    sqlite3 \
+                    libsqlite3-dev
+            fi
             ;;
         centos|rhel|fedora)
             if command_exists dnf; then
@@ -90,20 +109,37 @@ install_system_dependencies() {
             fi
             
             log_info "Installing system packages..."
-            sudo $PKG_MANAGER install -y \
-                python3 \
-                python3-pip \
-                python3-venv \
-                python3-devel \
-                nodejs \
-                npm \
-                git \
-                curl \
-                gcc \
-                gcc-c++ \
-                make \
-                sqlite \
-                sqlite-devel
+            if [ "$EUID" -eq 0 ]; then
+                $PKG_MANAGER install -y \
+                    python3 \
+                    python3-pip \
+                    python3-venv \
+                    python3-devel \
+                    nodejs \
+                    npm \
+                    git \
+                    curl \
+                    gcc \
+                    gcc-c++ \
+                    make \
+                    sqlite \
+                    sqlite-devel
+            else
+                sudo $PKG_MANAGER install -y \
+                    python3 \
+                    python3-pip \
+                    python3-venv \
+                    python3-devel \
+                    nodejs \
+                    npm \
+                    git \
+                    curl \
+                    gcc \
+                    gcc-c++ \
+                    make \
+                    sqlite \
+                    sqlite-devel
+            fi
             ;;
         *)
             log_error "Unsupported distribution: $DISTRO"
@@ -127,12 +163,21 @@ check_nodejs() {
         log_warning "Node.js not found. Installing Node.js..."
         
         # Install Node.js using NodeSource repository (works on most Linux distros)
-        curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-        sudo apt-get install -y nodejs || {
-            log_error "Failed to install Node.js via package manager"
-            log_info "Please install Node.js manually from https://nodejs.org/"
-            exit 1
-        }
+        if [ "$EUID" -eq 0 ]; then
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+            apt-get install -y nodejs || {
+                log_error "Failed to install Node.js via package manager"
+                log_info "Please install Node.js manually from https://nodejs.org/"
+                exit 1
+            }
+        else
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt-get install -y nodejs || {
+                log_error "Failed to install Node.js via package manager"
+                log_info "Please install Node.js manually from https://nodejs.org/"
+                exit 1
+            }
+        fi
     fi
     
     NODE_VERSION=$(node --version)
@@ -147,7 +192,11 @@ install_pm2() {
     
     if ! command_exists pm2; then
         log_info "Installing PM2 globally..."
-        sudo npm install -g pm2
+        if [ "$EUID" -eq 0 ]; then
+            npm install -g pm2
+        else
+            sudo npm install -g pm2
+        fi
         log_success "PM2 installed"
     else
         log_success "PM2 is already installed"
@@ -319,9 +368,26 @@ main() {
     
     # Check if running as root
     if [ "$EUID" -eq 0 ]; then
-        log_error "Please do not run this script as root"
-        log_info "Run: ./setup.sh"
-        exit 1
+        log_warning "Running as root detected!"
+        log_info "It's recommended to run this script as a non-root user for security."
+        log_info ""
+        log_info "Options:"
+        log_info "1. Continue as root (not recommended for production)"
+        log_info "2. Create a new user and run the script as that user"
+        log_info ""
+        log_info "To create a new user, run these commands in another terminal:"
+        log_info "  adduser eld-user"
+        log_info "  usermod -aG sudo eld-user"
+        log_info "  su - eld-user"
+        log_info "  cd /root/B26_Warehouse/eld-project"
+        log_info "  ./setup.sh"
+        log_info ""
+        read -p "Continue as root? (y/N): " -r continue_as_root
+        if [[ ! $continue_as_root =~ ^[Yy]$ ]]; then
+            log_info "Setup cancelled. Please run as non-root user."
+            exit 1
+        fi
+        log_warning "Continuing as root - this is not recommended for production servers!"
     fi
     
     # Install system dependencies
