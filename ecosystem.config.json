@@ -1,0 +1,55 @@
+{
+  "apps": [
+    {
+      "name": "eld-backend",
+      "cwd": "./backend",
+      "script": "../.venv/bin/python",
+      "args": "manage.py runserver 0.0.0.0:6800",
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "1G",
+      "env": {
+        "NODE_ENV": "production",
+        "DJANGO_SETTINGS_MODULE": "eld_app.settings"
+      },
+      "error_file": "./logs/backend-error.log",
+      "out_file": "./logs/backend-out.log",
+      "log_file": "./logs/backend-combined.log",
+      "time": true
+    },
+    {
+      "name": "eld-frontend",
+      "cwd": "./frontend",
+      "script": "npx",
+      "args": "serve -s build -l 1300",
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "512M",
+      "env": {
+        "NODE_ENV": "production"
+      },
+      "error_file": "./logs/frontend-error.log",
+      "out_file": "./logs/frontend-out.log",
+      "log_file": "./logs/frontend-combined.log",
+      "time": true
+    },
+    {
+      "name": "eld-webhook",
+      "script": "webhook-server.js",
+      "instances": 1,
+      "autorestart": true,
+      "watch": false,
+      "max_memory_restart": "128M",
+      "env": {
+        "NODE_ENV": "production",
+        "WEBHOOK_PORT": 9000
+      },
+      "error_file": "./logs/webhook-error.log",
+      "out_file": "./logs/webhook-out.log",
+      "log_file": "./logs/webhook-combined.log",
+      "time": true
+    }
+  ]
+}

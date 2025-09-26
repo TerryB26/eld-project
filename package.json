@@ -15,7 +15,16 @@
     "setup": "npm run install-deps",
     "build": "npm run frontend:build",
     "test": "cd frontend && npm test",
-    "deploy": "npm run setup && npm run build && npm run prod"
+    "deploy": "npm run setup && npm run build && npm run prod",
+    "pm2:start": "pm2 start ecosystem.config.json",
+    "pm2:stop": "pm2 stop ecosystem.config.json",
+    "pm2:restart": "pm2 restart ecosystem.config.json",
+    "pm2:status": "pm2 status",
+    "pm2:logs": "pm2 logs",
+    "pm2:monit": "pm2 monit",
+    "webhook:start": "node webhook-server.js",
+    "webhook:pm2": "pm2 start webhook-server.js --name eld-webhook",
+    "webhook:stop": "pm2 stop eld-webhook"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
