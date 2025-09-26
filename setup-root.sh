@@ -49,10 +49,13 @@ fi
 # Setup directories
 mkdir -p logs
 
-# Update ecosystem config for Linux
+# Update ecosystem config for Linux with absolute path
 if [ -f "ecosystem.config.json" ]; then
     cp ecosystem.config.json ecosystem.config.json.backup
-    sed -i 's|"../.venv/Scripts/python.exe"|"../.venv/bin/python"|g' ecosystem.config.json
+    PYTHON_ABSOLUTE_PATH="$VENV_DIR/bin/python"
+    sed -i "s|\"../.venv/Scripts/python.exe\"|\"$PYTHON_ABSOLUTE_PATH\"|g" ecosystem.config.json
+    sed -i "s|\"../.venv/bin/python\"|\"$PYTHON_ABSOLUTE_PATH\"|g" ecosystem.config.json
+    echo "✅ Updated ecosystem.config.json with absolute Python path: $PYTHON_ABSOLUTE_PATH"
 fi
 
 # Setup Django

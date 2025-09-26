@@ -322,15 +322,17 @@ update_ecosystem_config() {
     
     # Update the Python interpreter path in ecosystem.config.json for Linux
     if [ -f "ecosystem.config.json" ]; then
-        log_info "Updating ecosystem.config.json for Linux paths..."
+        log_info "Updating ecosystem.config.json with absolute Python path..."
         
         # Create a backup
         cp ecosystem.config.json ecosystem.config.json.backup
         
-        # Replace Windows path with Linux path
-        sed -i 's|"../.venv/Scripts/python.exe"|"../.venv/bin/python"|g' ecosystem.config.json
+        # Use absolute path to avoid PM2 PATH issues
+        PYTHON_ABSOLUTE_PATH="$VENV_DIR/bin/python"
+        sed -i "s|\"../.venv/Scripts/python.exe\"|\"$PYTHON_ABSOLUTE_PATH\"|g" ecosystem.config.json
+        sed -i "s|\"../.venv/bin/python\"|\"$PYTHON_ABSOLUTE_PATH\"|g" ecosystem.config.json
         
-        log_success "Ecosystem config updated for Linux"
+        log_success "Ecosystem config updated with absolute path: $PYTHON_ABSOLUTE_PATH"
     fi
 }
 
