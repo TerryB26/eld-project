@@ -1,31 +1,72 @@
 # ELD Project Deployment Guide
 
-## 🚀 Hosting Options
+## 🚀 Automated Linux Server Deployment
+
+### Quick Setup (Recommended)
+```bash
+# Clone the repository
+git clone https://github.com/TerryB26/eld-project.git
+cd eld-project
+
+# Run the automated setup script
+chmod +x setup.sh
+./setup.sh
+```
+
+The setup script automatically:
+- Detects your Linux distribution (Ubuntu/Debian/CentOS/RHEL/Fedora)
+- Installs all required system dependencies
+- Sets up Python virtual environment
+- Installs all application dependencies
+- Configures the database
+- Builds the frontend
+- Starts the application with PM2
+
+After setup completion:
+- Backend API: http://localhost:6800
+- Frontend: http://localhost:1300
+
+### Managing the Application
+```bash
+# Check application status
+pm2 status
+
+# View logs
+pm2 logs
+
+# Restart services
+pm2 restart ecosystem.config.json
+
+# Stop services
+pm2 stop ecosystem.config.json
+```
+
+## 🔧 Manual Hosting Options
 
 ### Option 1: Development/Local Network
 ```bash
 # Default ports - accessible on local network
 npm run prod
-# Backend: http://your-ip:8000
-# Frontend: http://your-ip:3000
+# Backend: http://your-ip:6800
+# Frontend: http://your-ip:1300
 ```
 
 ### Option 2: Custom Ports
 ```bash
 # Backend on custom port
-cd backend && ../.venv/Scripts/python.exe manage.py runserver 0.0.0.0:8080
+cd backend && ../.venv/bin/python manage.py runserver 0.0.0.0:8080
 
 # Frontend on custom port  
 cd frontend && npx serve -s build -l 4000
 ```
 
-### Option 3: Production Server (Linux)
+### Option 3: Manual Production Setup (if not using setup.sh)
 
 #### Prerequisites
 ```bash
-# Install dependencies
+# Install dependencies (example for Ubuntu/Debian)
 sudo apt update
-sudo apt install python3 python3-venv nodejs npm nginx
+sudo apt install python3 python3-venv nodejs npm nginx pm2
 
 # Clone project
 git clone https://github.com/TerryB26/eld-project.git

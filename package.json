@@ -22,9 +22,9 @@
     "pm2:status": "pm2 status",
     "pm2:logs": "pm2 logs",
     "pm2:monit": "pm2 monit",
-    "webhook:start": "node webhook-server.js",
-    "webhook:pm2": "pm2 start webhook-server.js --name eld-webhook",
-    "webhook:stop": "pm2 stop eld-webhook"
+    "server:setup": "chmod +x setup.sh && ./setup.sh",
+    "server:update": "chmod +x update.sh && ./update.sh",
+    "server:status": "chmod +x status.sh && ./status.sh"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

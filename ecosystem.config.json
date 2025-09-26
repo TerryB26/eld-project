@@ -35,22 +35,6 @@
       "out_file": "./logs/frontend-out.log",
       "log_file": "./logs/frontend-combined.log",
       "time": true
-    },
-    {
-      "name": "eld-webhook",
-      "script": "webhook-server.js",
-      "instances": 1,
-      "autorestart": true,
-      "watch": false,
-      "max_memory_restart": "128M",
-      "env": {
-        "NODE_ENV": "production",
-        "WEBHOOK_PORT": 9000
-      },
-      "error_file": "./logs/webhook-error.log",
-      "out_file": "./logs/webhook-out.log",
-      "log_file": "./logs/webhook-combined.log",
-      "time": true
     }
   ]
 }

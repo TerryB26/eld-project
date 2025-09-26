@@ -43,8 +43,36 @@ A comprehensive full-stack web application for truck drivers to comply with the 
 
 ## Installation & Setup
 
-### Prerequisites
-- Python 3.13+ 
+### Linux Server Installation (Recommended)
+
+For Linux servers, use the automated setup script that installs all dependencies:
+
+```bash
+# Clone the repository
+git clone https://github.com/TerryB26/eld-project.git
+cd eld-project
+
+# Make the script executable and run it
+chmod +x setup.sh
+./setup.sh
+```
+
+The setup script will:
+- Install all system dependencies (Python, Node.js, etc.)
+- Create Python virtual environment
+- Install all Python and Node.js dependencies
+- Set up the database
+- Build the frontend
+- Configure and start the application with PM2
+
+After installation, your application will be running on:
+- Backend API: http://localhost:6800
+- Frontend: http://localhost:1300
+
+### Manual Installation
+
+#### Prerequisites
+- Python 3.8+ 
 - Node.js 16+
 - npm or yarn
 
